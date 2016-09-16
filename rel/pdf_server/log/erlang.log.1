@@ -1,0 +1,155 @@
+
+=====
+===== LOGGING STARTED Fri Sep 16 11:12:22 CEST 2016
+=====
+Erlang/OTP 19 [erts-8.0] [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
+
+
+=CRASH REPORT==== 16-Sep-2016::11:12:22 ===
+  crasher:
+    initial call: Elixir.Phoenix.CodeReloader.Server:init/1
+    pid: <0.868.0>
+    registered_name: []
+    exception exit: {undef,
+                        [{'Elixir.Mix.Project',config,[],[]},
+                         {'Elixir.Phoenix.CodeReloader.Server',init,1,
+                             [{file,"lib/phoenix/code_reloader/server.ex"},
+                              {line,32}]},
+                         {gen_server,init_it,6,
+                             [{file,"gen_server.erl"},{line,328}]},
+                         {proc_lib,init_p_do_apply,3,
+                             [{file,"proc_lib.erl"},{line,247}]}]}
+      in function  gen_server:init_it/6 (gen_server.erl, line 352)
+    ancestors: ['Elixir.PdfServer.Endpoint','Elixir.PdfServer.Supervisor',
+                  <0.857.0>]
+    messages: []
+    links: [<0.859.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 376
+    stack_size: 27
+    reductions: 150
+  neighbours:
+
+=SUPERVISOR REPORT==== 16-Sep-2016::11:12:22 ===
+     Supervisor: {local,'Elixir.PdfServer.Endpoint'}
+     Context:    start_error
+     Reason:     {undef,
+                     [{'Elixir.Mix.Project',config,[],[]},
+                      {'Elixir.Phoenix.CodeReloader.Server',init,1,
+                          [{file,"lib/phoenix/code_reloader/server.ex"},
+                           {line,32}]},
+                      {gen_server,init_it,6,
+                          [{file,"gen_server.erl"},{line,328}]},
+                      {proc_lib,init_p_do_apply,3,
+                          [{file,"proc_lib.erl"},{line,247}]}]}
+     Offender:   [{pid,undefined},
+                  {id,'Elixir.Phoenix.CodeReloader.Server'},
+                  {mfargs,
+                      {'Elixir.Phoenix.CodeReloader.Server',start_link,
+                          [pdf_server,
+                           [<<"web">>],
+                           [gettext,phoenix,elixir],
+                           [{name,
+                                'Elixir.PdfServer.Endpoint.CodeReloader'}]]}},
+                  {restart_type,permanent},
+                  {shutdown,5000},
+                  {child_type,worker}]
+
+
+=SUPERVISOR REPORT==== 16-Sep-2016::11:12:22 ===
+     Supervisor: {local,'Elixir.PdfServer.Supervisor'}
+     Context:    start_error
+     Reason:     {shutdown,
+                     {failed_to_start_child,
+                         'Elixir.Phoenix.CodeReloader.Server',
+                         {undef,
+                             [{'Elixir.Mix.Project',config,[],[]},
+                              {'Elixir.Phoenix.CodeReloader.Server',init,1,
+                                  [{file,
+                                       "lib/phoenix/code_reloader/server.ex"},
+                                   {line,32}]},
+                              {gen_server,init_it,6,
+                                  [{file,"gen_server.erl"},{line,328}]},
+                              {proc_lib,init_p_do_apply,3,
+                                  [{file,"proc_lib.erl"},{line,247}]}]}}}
+     Offender:   [{pid,undefined},
+                  {id,'Elixir.PdfServer.Endpoint'},
+                  {mfargs,{'Elixir.PdfServer.Endpoint',start_link,[]}},
+                  {restart_type,permanent},
+                  {shutdown,infinity},
+                  {child_type,supervisor}]
+
+
+=CRASH REPORT==== 16-Sep-2016::11:12:22 ===
+  crasher:
+    initial call: application_master:init/4
+    pid: <0.856.0>
+    registered_name: []
+    exception exit: {{shutdown,
+                      {failed_to_start_child,'Elixir.PdfServer.Endpoint',
+                       {shutdown,
+                        {failed_to_start_child,
+                         'Elixir.Phoenix.CodeReloader.Server',
+                         {undef,
+                          [{'Elixir.Mix.Project',config,[],[]},
+                           {'Elixir.Phoenix.CodeReloader.Server',init,1,
+                            [{file,"lib/phoenix/code_reloader/server.ex"},
+                             {line,32}]},
+                           {gen_server,init_it,6,
+                            [{file,"gen_server.erl"},{line,328}]},
+                           {proc_lib,init_p_do_apply,3,
+                            [{file,"proc_lib.erl"},{line,247}]}]}}}}},
+                     {'Elixir.PdfServer',start,[normal,[]]}}
+      in function  application_master:init/4 (application_master.erl, line 134)
+    ancestors: [<0.855.0>]
+    messages: [{'EXIT',<0.857.0>,normal}]
+    links: [<0.855.0>,<0.754.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 126
+  neighbours:
+[info] Application pdf_server exited: PdfServer.start(:normal, []) returned an error: shutdown: failed to start child: PdfServer.Endpoint
+    ** (EXIT) shutdown: failed to start child: Phoenix.CodeReloader.Server
+        ** (EXIT) an exception was raised:
+            ** (UndefinedFunctionError) function Mix.Project.config/0 is undefined (module Mix.Project is not available)
+                Mix.Project.config()
+                (phoenix) lib/phoenix/code_reloader/server.ex:32: Phoenix.CodeReloader.Server.init/1
+                (stdlib) gen_server.erl:328: :gen_server.init_it/6
+                (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+{"Kernel pid terminated",application_controller,"{application_start_failure,pdf_server,{{shutdown,{failed_to_start_child,'Elixir.PdfServer.Endpoint',{shutdown,{failed_to_start_child,'Elixir.Phoenix.CodeReloader.Server',{undef,[{'Elixir.Mix.Project',config,[],[]},{'Elixir.Phoenix.CodeReloader.Server',init,1,[{file,\"lib/phoenix/code_reloader/server.ex\"},{line,32}]},{gen_server,init_it,6,[{file,\"gen_server.erl\"},{line,328}]},{proc_lib,init_p_do_apply,3,[{file,\"proc_lib.erl\"},{line,247}]}]}}}}},{'Elixir.PdfServer',start,[normal,[]]}}}"}
+
+Crash dump is being written to: erl_crash.dump...done
+Kernel pid terminated (application_controller) ({application_start_failure,pdf_server,{{shutdown,{failed_to_start_child,'Elixir.PdfServer.Endpoint',{shutdown,{failed_to_start_child,'Elixir.Phoenix.Cod
+
+=====
+===== LOGGING STARTED Fri Sep 16 11:30:48 CEST 2016
+=====
+Erlang/OTP 19 [erts-8.0] [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
+
+11:30:48.626 [info] Running PdfServer.Endpoint with Cowboy using http on port 4004
+Interactive Elixir (1.3.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(pdf_server@127.0.0.1)1> 11:30:58.452 request_id=7f45sbnvs4lc0pc0rsf83iovtqdlp59b [info] POST /api/v1/generate
+%{"html" => "<html><body><h1>Hi</h1></body></html>"}
+11:30:58.735 request_id=7f45sbnvs4lc0pc0rsf83iovtqdlp59b [info] Sent 200 in 282ms
+
+=====
+===== LOGGING STARTED Fri Sep 16 11:37:12 CEST 2016
+=====
+Erlang/OTP 19 [erts-8.0] [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
+
+11:37:13.033 [info] Running PdfServer.Endpoint with Cowboy using http on port 4004
+Interactive Elixir (1.3.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(pdf_server@127.0.0.1)1> 
+=====
+===== LOGGING STARTED Fri Sep 16 11:38:53 CEST 2016
+=====
+Erlang/OTP 19 [erts-8.0] [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
+
+11:38:54.501 [info] Running PdfServer.Endpoint with Cowboy using http on port 4004
+Interactive Elixir (1.3.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(pdf_server@127.0.0.1)1> 

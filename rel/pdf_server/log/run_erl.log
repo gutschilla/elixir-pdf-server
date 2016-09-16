@@ -1,0 +1,8 @@
+run_erl [15544] Fri Sep 16 11:38:53 2016
+Args before exec of shell:
+run_erl [15544] Fri Sep 16 11:38:53 2016
+argv[0] = sh
+run_erl [15544] Fri Sep 16 11:38:53 2016
+argv[1] = -c
+run_erl [15544] Fri Sep 16 11:38:53 2016
+argv[2] = exec "/home/mart/work/pdf_server/rel/pdf_server/bin/pdf_server" "console" --  
