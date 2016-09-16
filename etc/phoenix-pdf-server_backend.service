@@ -1,0 +1,14 @@
+[Unit]
+Description=pdf_generator service
+After=networking.service 
+
+[Service]
+Type=forking
+Environment=PORT=4004
+WorkingDirectory=/var/www-apps/pdf_server
+ExecStartPre=/bin/bash /var/www-apps/pdf_server/etc/pre-start.sh
+ExecStart=/sbin/start-stop-daemon --start --user phoenix-pdf-server --chuid phoenix-pdf-server --verbose          --startas /var/www-apps/pdf_server/rel/pdf_server/bin/pdf_server -- start
+ExecStop=/sbin/start-stop-daemon  --stop  --user phoenix-pdf-server --chuid phoenix-pdf-server --verbose --oknodo --startas /var/www-apps/pdf_server/rel/pdf_server/bin/pdf_server -- stop
+
+[Install]
+WantedBy=multi-user.target
