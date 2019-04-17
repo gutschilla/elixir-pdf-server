@@ -30,15 +30,19 @@ RUN npm -g install \
     puppeteer \
     chrome-headless-render-pdf
 
+RUN \
+    apt-get -y install xfonts-base xfonts-75dpi \
+    && wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
+    && dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
+
 ENV MIX_ENV prod
 ENV PORT 4000
 RUN \
     apt-get -y install locales locales-all \
     && update-locale LC_ALL=en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-RUN git clone https://github.com/gutschilla/elixir-pdf-server.git 
-RUN \
-    cd elixir-pdf-server \
+RUN git clone https://github.com/gutschilla/elixir-pdf-server.git \
+    && cd elixir-pdf-server \
     && mix local.rebar --force \
     && mix local.hex --force \
     && mix deps.get \
