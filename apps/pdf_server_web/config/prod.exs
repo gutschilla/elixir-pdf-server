@@ -14,9 +14,9 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :pdf_server_web, PdfServerWeb.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  http: [:inet6, port: System.get_env("PORT") || 4000]
+  # url: [host: "example.com", port: 80],
+  # cache_static_manifest: "priv/static/cache_manifest.json"
 
 # ## SSL Support
 #
@@ -57,13 +57,14 @@ config :pdf_server_web, PdfServerWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-#     config :phoenix, :serve_endpoints, true
+# config :phoenix, :serve_endpoints, true
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :pdf_server_web, PdfServerWeb.Endpoint, server: true
-#
+
+config :pdf_server_web, PdfServerWeb.Endpoint, server: true
+
 # Note you can't rely on `System.get_env/1` when using releases.
 # See the releases documentation accordingly.
 
