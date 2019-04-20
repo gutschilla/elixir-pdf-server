@@ -43,6 +43,7 @@ RUN \
     apt-get -y install locales locales-all \
     && update-locale LC_ALL=en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+ENV V 1
 RUN git clone https://github.com/gutschilla/elixir-pdf-server.git \
     && cd elixir-pdf-server \
     && mix local.rebar --force \
