@@ -35,7 +35,7 @@ defmodule PdfServer.MixProject do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:pdf_generator, "~> 0.5.6"}]
+    [{:pdf_generator, "~> 0.5.7"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
