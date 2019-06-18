@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export MIX_ENV=prod
+export PORT=4000
 cd /root\
     && cd elixir-pdf-server\
     && git pull\

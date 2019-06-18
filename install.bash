@@ -1,10 +1,19 @@
-apt-get update \
-    && apt-get -y install \
-               curl \
-               wget \
-               apt-utils \
-               gnupg \
-               git
+#!/bin/bash
+
+tee /etc/cron.daily/upgrade << 'EOF'
+#!/bin/bash
+sudo apt-get update
+sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
+EOF
+chmod ug+x /etc/cron.daily/upgrade
+/etc/cron.daily/upgrade
+
+apt-get -y install\
+        curl\
+        wget\
+        apt-utils\
+        gnupg\
+        git
 
 echo "deb http://binaries.erlang-solutions.com/debian bionic contrib" >> /etc/apt/sources.list.d/erlang-solutions.list
 wget https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc

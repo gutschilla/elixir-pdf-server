@@ -1,4 +1,7 @@
 defmodule PdfServer do
+
+  require Logger
+
   @moduledoc """
   PdfServer keeps the contexts that define your domain
   and business logic.
@@ -22,23 +25,24 @@ defmodule PdfServer do
   to remove default margins.
   """
   def default_options(options) do
-    IO.inspect(options)
     generator    = options[:generator]
     shell_params = options[:shell_params] || []
-    # add to existing shell_params
-    Keyword.put(options, :shell_params, shell_params ++ remove_margins_for(generator))
+    options
+    |> Keyword.put(:shell_params, remove_margins_for(generator) ++ shell_params)
+    |> add_extra_params_for(generator)
+    |> log_and_return()
   end
 
-  def remove_margins_for(nil) do
-    remove_margins_for(:wkhtmltopdf)
+  defp log_and_return(value) do
+    value |> inspect() |> Logger.debug()
+    value
   end
 
-  def remove_margins_for(:wkhtmltopdf) do
-    ["-L", "0mm", "-R", "0mm", "-T", "0m", "-B", "0mm"]
-  end
+  def remove_margins_for(nil),          do: remove_margins_for(:wkhtmltopdf)
+  def remove_margins_for(:wkhtmltopdf), do: ["-L", "0mm", "-R", "0mm", "-T", "0mm", "-B", "0mm"]
+  def remove_margins_for(:chrome),      do: ["--no-margins"]
 
-  def remove_margins_for(:chrome) do
-    ["--no-margins"]
-  end
+  def add_extra_params_for(options, :wkhtmltopdf), do: options
+  def add_extra_params_for(options, :chrome),      do: options |> Keyword.put(:no_sandbox, true)
 
 end
