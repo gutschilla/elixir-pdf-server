@@ -10,8 +10,8 @@ defmodule PdfServer do
   def generate({:html, html}, options), do: generate_content(html,        options)
   def generate({:url,   url}, options), do: generate_content({:url, url}, options)
   def generate_content(content, options) do
-    passed_options = default_options(options)
-    with {:ok, pdf_path}   <- PdfGenerator.generate(content, options),
+    options_with_deafults = default_options(options)
+    with {:ok, pdf_path}   <- PdfGenerator.generate(content, options_with_deafults),
          {:ok, pdf_binary} <- File.read(pdf_path) do
       {:ok, pdf_binary}
     end
@@ -22,10 +22,11 @@ defmodule PdfServer do
   to remove default margins.
   """
   def default_options(options) do
+    IO.inspect(options)
     generator    = options[:generator]
     shell_params = options[:shell_params] || []
     # add to existing shell_params
-    [shell_params: shell_params ++ remove_margins_for(generator)]
+    Keyword.put(options, :shell_params, shell_params ++ remove_margins_for(generator))
   end
 
   def remove_margins_for(nil) do
@@ -33,7 +34,7 @@ defmodule PdfServer do
   end
 
   def remove_margins_for(:wkhtmltopdf) do
-    ["-L", "0mm", "R", "0mm", "T", "0m", "B", "0mm"]
+    ["-L", "0mm", "-R", "0mm", "-T", "0m", "-B", "0mm"]
   end
 
   def remove_margins_for(:chrome) do
