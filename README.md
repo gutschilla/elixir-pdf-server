@@ -30,6 +30,14 @@ x-request-id: FaT6t7TJQHHXZtcAAABD
 …
 ```
 
+## Example
+
+Send some html (or SVG in this case) as file upload and get back a PDF.
+
+```bash
+curl -F "html=@\"ticket.svg\";filename=\"boom.pdf\"" -XPOST http:/127.0.0.1:4000/api/generate\?generator=chrome --output ticket.pdf
+```
+
 ## Parameters
 
 Both `GET` and `POST` parameters are accepted. For HTML to sent directly to the

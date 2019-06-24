@@ -10,6 +10,14 @@ defmodule PdfServerWeb.GeneratorController do
     end
   end
 
+  def generate(conn, params = %{"html" => upload = %Plug.Upload{}}) do
+    with {:ok, options}    <- parse_options(params),
+         {:ok, html} <- File.read(upload.path),
+         {:ok, pdf_binary} <- PdfServer.generate({:html, html}, options) do
+      deliver_pdf(conn, pdf_binary, params["filename"] || upload.filename)
+    end
+  end
+
   def generate(conn, params = %{"html" => html}) do
     {:ok, pdf_binary} = PdfServer.generate({:html, html})
     deliver_pdf(conn, pdf_binary, params["filename"])
